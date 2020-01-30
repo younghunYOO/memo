@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <!-- Webpage Title -->
+    <title>커피를 팝니다.</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet"> <!--폰트 넣는곳-->
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script|Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->		
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    
+
+    <style>
+      .picture{
+        border: solid;
+        background-image: url(https://post-phinf.pstatic.net/MjAxNzEwMzBfMiAg/MDAxNTA5MzU2MDAzNTEz.XqEALU12-UN85LU2mVNh_ZgtrdDrzr5V9Leo4-ttsncg.oe0XGZaIEpjVRtJeMNtAUtMxIkTgTHaemKnAWvkoaQ8g.JPEG/%EC%95%84%EB%A9%94%EB%A6%AC%EC%B9%B4%EB%85%B8_3.jpg?type=w1200);
+        background-size: cover;
+        background-position: center;
+        width: 500px;
+        height: 400px;
+        margin: auto;
+      }
+      .write{
+        width: 600px;
+        margin: 0px auto 30px auto;
+        padding: 20px;
+      }
+      .write >.write_2 > h2{
+        font-size: 15px;
+        font-family: font-family: 'Cute Font', cursive;
+
+      }
+      .button{
+        width: 100px;
+        margin: 0px auto 30px auto;
+      }
+      .next{
+        font-size: 20px;
+        display: inline;
+        width: 300px;
+      }
+      .cal{
+        width: 600px;
+        margin: 0px auto 30px auto;
+      }
+      .p{
+        font-family: 'Nanum Pen Script', cursive;
+        font-size: 30px;
+      }
+
+      .tb{
+        font-family: 'Nanum Brush Script', cursive;
+        font-size: 25px;
+      }
+
+    </style>
+
+  
+    <script>
+      function c1() {
+        let names = $('#input_name').val()
+        let quantity = $('#inputGroupSelect01').val()
+        let juso = $('#input_juso').val()
+        let number = $('#input_number')
+        let regExp = /^\d{3}-\d{3,4}-\d{4}$/
+
+        if (names == ''){
+          alert('주문자 이름을 입력하세요!!')
+          $('#input_name').focus()
+        } 
+        else if (quantity == '0'){
+          alert('수량을 입력하세요!!')
+          $('#inputGroupSelect01').focus()
+        } 
+        else if (juso == ''){
+          alert('주소를 입력하세요!!')
+          $('#input_juso').focus()
+        } 
+        else if(!regExp.test($("input[id='input_number']").val())){
+          alert('전화번호를 OOO-OOOO-OOOO형식으로 입력해 주세요!!')
+          $('#input_number').focus()
+        } 
+        else{
+          alert('주문을 완료하였습니다.')
+        }
+
+      }
+      $(document).ready(function(){
+        $('#names-q1').html('')
+        listing()
+      })
+
+      
+        $.ajax({
+          type: "GET",
+          url: "http://spartacodingclub.shop/order",
+          data: {},
+          success: function(response){
+            let orders = response['orders'];
+            for (let i = 0; i < orders.length; i++) {
+              let address = orders[i]['address'];
+              let count = orders[i]['count'];
+              let name = orders[i]['name'];
+              let phone = orders[i]['phone']
+              let temp_html = '<tr>\
+              <td>'+name+'</td>\
+              <td>'+count+'</td>\
+              <td>'+address+'</td>\
+              <td>'+phone+'</td>\
+              </tr>'
+              $('#names-q1').append(temp_html)
+            }
+          }
+        })
+      
+
+    
+    </script>
+
+
+  </head>
+
+  <body>
+    <div class="picture">
+
+    </div>
+    <div class="write">
+      <h1>커피를 팝니다. <div class="next"><span style="font-family: 'Nanum Pen Script', cursive"> 가격 : 3000천원/개</span></div></h1>
+      
+      <div class="write_2">
+      <h2>이 커피는 브라질 세라도 원두와 에티오피아 예가체프를 8대 2 비율로 블렌딩한 커피로 고소한 향이 강하게 납니다. 커피를 처음 입문하시는 분들께 추천드립니다.</h2>
+      </div>
+    <div class="order">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1" >주문자 이름</span>
+        </div>
+        <input id="input_name" type="text" class="form-control" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01" >수량</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01">
+          <option selected value="0">---수량을 선택하세요.---</option>
+          <option value="1">1개</option>
+          <option value="2">2개</option>
+          <option value="3">3개</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">주소</span>
+        </div>
+        <input id="input_juso" type="text" class="form-control" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">전화번호</span>
+        </div>
+        <input id="input_number" type="text" class="form-control" aria-describedby="basic-addon1">
+      </div>
+    </div>
+    </div>
+    <div class="button" >
+      <button onclick="c1()" type="button" class="btn btn-primary">주문하기</button>
+    </div>
+    <table class="cal">
+      <thead>
+        <tr class='p'>
+          <td>이름</td>
+          <td>수량</td>
+          <td>주소</td>
+          <td>전화번호</td>
+        </tr>
+    </thead>
+    <tbody id="names-q1" class='tb'>
+    </tbody>
+    </table>
+  </body>
+</html>
