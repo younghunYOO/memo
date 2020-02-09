@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+		
+		<!-- Webpage Title -->
+    <title>count</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		
+		<!-- JS -->		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+
+    <script type="text/javascript">
+    	function f1(){
+    		let input_animal = $('#input_animal')
+    		$('#animal_result').empty()
+    		$.ajax({
+    			type: "GET",
+    			url: "/count?animal="+input_animal,
+    			data: {},
+    			success: function(response){
+    				$('#animal_result').text(response)
+    			}
+    		})
+
+
+    	}
+
+
+
+
+    </script>
+  </head>
+  <body>
+    <p>동물 : 
+    	<input type="text" id="input_animal">
+	</p>
+    <button type="submit" class="btn btn-primary" onclick="f1()">확인</button>
+    <h2 id = 'animal_result'></h2>
+  </body> 
+</html>
